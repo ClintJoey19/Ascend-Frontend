@@ -72,7 +72,11 @@
 
 @layer components {
   .container {
-    @apply w-full md:max-w-[1220px] mx-auto px-4 md:px-8 py-16 border-b border-slate-400;
+    @apply w-full md:max-w-[1220px] mx-auto;
+  }
+
+  .section-container {
+    @apply w-full px-4 md:px-8 py-16 border-b border-slate-400;
   }
 
   .section-title {

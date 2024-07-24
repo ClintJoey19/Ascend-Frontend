@@ -2,7 +2,7 @@ import FeaturesGrid from "./FeaturesGrid";
 
 const Features = () => {
   return (
-    <section className="container">
+    <section className="section-container">
       <FeaturesGrid />
     </section>
   );

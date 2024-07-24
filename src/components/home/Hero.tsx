@@ -6,9 +6,9 @@ import SearchEstate from "./SearchEstate";
 
 const Hero = () => {
   return (
-    <section className="container pt-[8vh] flex flex-col gap-4 md:pb-20">
+    <section className="section-container flex flex-col gap-4 md:pb-20">
       <div className="w-full flex flex-col md:flex-row gap-4 relative">
-        <div className="h-full w-full md:w-[90%] flex items-center pt-16">
+        <div className="h-full w-full md:w-[90%] flex items-center md:pt-16">
           <div className="flex flex-col gap-2 md:gap-4">
             <Badge>No. 1 Agency Of The Year</Badge>
             <h1 className="text-4xl sm:text-6xl lg:text-8xl font-medium">

@@ -1,19 +1,18 @@
-import FAQs from "./components/home/FAQs";
-import Features from "./components/home/Features";
-import Hero from "./components/home/Hero";
-import RecentProperties from "./components/home/RecentProperties";
-import Testimonials from "./components/home/Testimonials";
+import Navbar from "./components/global/Navbar";
+import Footer from "./components/global/Footer";
+import { Outlet } from "react-router-dom";
+import HomeLayout from "@/layouts/HomeLayout";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <Hero />
-      <Features />
-      <RecentProperties />
-      <Testimonials />
-      <FAQs />
-    </>
+    <main className="w-full flex flex-col">
+      <Navbar />
+      <HomeLayout>
+        <Outlet />
+      </HomeLayout>
+      <Footer />
+    </main>
   );
-}
+};
 
 export default App;

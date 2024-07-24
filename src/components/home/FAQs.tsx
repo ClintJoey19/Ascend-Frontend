@@ -42,7 +42,7 @@ const faqs: FAQ[] = [
 
 const FAQs = () => {
   return (
-    <section className="container flex flex-col gap-8">
+    <section className="section-container flex flex-col gap-8">
       <SectionHeader title="Frequently Asked Questions" />
       <Accordion type="single" collapsible>
         {faqs.map(({ question, answer }, i) => (

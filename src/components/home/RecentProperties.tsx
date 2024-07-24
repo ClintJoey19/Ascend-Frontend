@@ -4,7 +4,7 @@ import { properties } from "./FeatureProperties";
 
 const RecentProperties = () => {
   return (
-    <section className="container flex flex-col gap-16">
+    <section className="section-container flex flex-col gap-16">
       <SectionHeader
         title="Our Recent Completed Projects"
         description="A real state agency typically consists a team of professionals who work

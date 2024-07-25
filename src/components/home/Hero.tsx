@@ -1,5 +1,6 @@
 import Badge from "../global/Badge";
 import TextImage from "../global/TextImage";
+import SearchFilterForm from "../projects/SearchFilterForm";
 import { Button } from "../ui/button";
 import FeatureProperties from "./FeatureProperties";
 import SearchEstate from "./SearchEstate";
@@ -33,8 +34,8 @@ const Hero = () => {
           </Button>
         </div>
       </div>
-      <div>
-        <SearchEstate />
+      <div className="my-8">
+        <SearchFilterForm />
       </div>
       <div>
         <FeatureProperties />

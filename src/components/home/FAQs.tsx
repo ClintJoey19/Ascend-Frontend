@@ -46,7 +46,7 @@ const FAQs = () => {
       <SectionHeader title="Frequently Asked Questions" />
       <Accordion type="single" collapsible>
         {faqs.map(({ question, answer }, i) => (
-          <AccordionItem value={`item${i}`}>
+          <AccordionItem key={i} value={`item${i}`}>
             <AccordionTrigger className="text-xl md:text-2xl">
               {question}
             </AccordionTrigger>

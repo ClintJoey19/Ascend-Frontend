@@ -10,6 +10,7 @@ import App from "./App.tsx";
 import About from "./pages/About.tsx";
 import Contact from "./pages/Contact.tsx";
 import Agents from "./pages/Agents.tsx";
+import Project from "./pages/Project.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "projects",
         element: <Projects />,
+      },
+      {
+        path: "projects/:id",
+        element: <Project />,
       },
       {
         path: "about-us",

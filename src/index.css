@@ -79,6 +79,10 @@
     @apply w-full px-4 md:px-8 py-16 border-b border-slate-400;
   }
 
+  .card-container {
+    @apply w-full p-4 bg-white rounded-xl shadow-md;
+  }
+
   .section-title {
     @apply text-4xl md:text-6xl font-medium;
   }

@@ -14,7 +14,7 @@ const PropertyHeader = ({ name, address }: PropertyHeaderProps) => {
           <span className="text-muted-foreground truncate">{address}</span>
         </div>
       </div>
-      <div className="grid grid-cols-5 rounded-xl border border-slate-400">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 rounded-xl border border-slate-400">
         <div className="gap-2 border-r border-slate-400 p-4">
           <p className="text-muted-foreground text-sm mb-1">Bedroom</p>
           <div className="flex items-center gap-2">

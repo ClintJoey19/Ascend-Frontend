@@ -3,7 +3,6 @@ import TextImage from "../global/TextImage";
 import SearchFilterForm from "../projects/SearchFilterForm";
 import { Button } from "../ui/button";
 import FeatureProperties from "./FeatureProperties";
-import SearchEstate from "./SearchEstate";
 
 const Hero = () => {
   return (

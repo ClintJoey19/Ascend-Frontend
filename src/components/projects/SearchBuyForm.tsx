@@ -10,8 +10,9 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Search } from "lucide-react";
+import { cities } from "@/constants/philippines";
 
-const SearchPropertyForm = () => {
+const SearchBuyForm = () => {
   return (
     <div className="my-4 flex flex-col gap-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -21,12 +22,19 @@ const SearchPropertyForm = () => {
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Choose location" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="max-h-[300px]">
               <SelectGroup>
                 <SelectLabel>Locations</SelectLabel>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                {cities
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((city, i) => {
+                    const value = `${city.name}, ${city.province}`;
+                    return (
+                      <SelectItem key={i} value={value}>
+                        {value}
+                      </SelectItem>
+                    );
+                  })}
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -43,12 +51,14 @@ const SearchPropertyForm = () => {
           <p className="font-medium text-sm">Type of Property</p>
           <Select>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Theme" />
+              <SelectValue placeholder="Type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
+              <SelectGroup>
+                <SelectItem value="house">House</SelectItem>
+                <SelectItem value="dark">Apartment</SelectItem>
+                <SelectItem value="system">Condo Unit</SelectItem>
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>
@@ -83,4 +93,4 @@ const SearchPropertyForm = () => {
   );
 };
 
-export default SearchPropertyForm;
+export default SearchBuyForm;

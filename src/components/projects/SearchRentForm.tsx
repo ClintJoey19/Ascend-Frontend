@@ -40,11 +40,11 @@ const SearchRentForm = () => {
           </Select>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="font-medium text-sm">Min Price</p>
+          <p className="font-medium text-sm">Min Rent Fee</p>
           <Input type="number" placeholder="3000" />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="font-medium text-sm">Max Price</p>
+          <p className="font-medium text-sm">Max Rent Fee</p>
           <Input type="number" placeholder="8000" />
         </div>
         <div className="flex flex-col gap-2">

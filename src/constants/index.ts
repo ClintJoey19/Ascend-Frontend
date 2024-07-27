@@ -109,3 +109,94 @@ export const footerLinks = [
     ],
   },
 ];
+
+export const properties: Property[] = [
+  {
+    id: "1",
+    name: "Hello World",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
+    address: "Naga City, CAS",
+    type: "buy",
+    propertyType: "House",
+    classType: "A",
+    price: 50_000_000,
+  },
+  {
+    id: "2",
+    name: "Hello World",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
+    address: "Naga City, CAS",
+    type: "rent",
+    propertyType: "House",
+    classType: "A",
+    price: 50_000_000,
+  },
+  {
+    id: "3",
+    name: "Hello World",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
+    address: "Naga City, CAS",
+    type: "buy",
+    propertyType: "House",
+    classType: "A",
+    price: 50_000_000,
+  },
+  {
+    id: "4",
+    name: "Hello World",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
+    address: "Naga City, CAS",
+    type: "buy",
+    propertyType: "House",
+    classType: "A",
+    price: 50_000_000,
+  },
+  {
+    id: "5",
+    name: "Hello World",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
+    address: "Naga City, CAS",
+    type: "rent",
+    propertyType: "House",
+    classType: "A",
+    price: 50_000_000,
+  },
+  {
+    id: "6",
+    name: "Hello World",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
+    address: "Naga City, CAS",
+    type: "rent",
+    propertyType: "House",
+    classType: "A",
+    price: 50_000_000,
+  },
+  {
+    id: "7",
+    name: "Hello World",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
+    address: "Naga City, CAS",
+    type: "buy",
+    propertyType: "House",
+    classType: "A",
+    price: 50_000_000,
+  },
+  {
+    id: "8",
+    name: "Hello World",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
+    address: "Naga City, CAS",
+    type: "buy",
+    propertyType: "House",
+    classType: "A",
+    price: 50_000_000,
+  },
+];

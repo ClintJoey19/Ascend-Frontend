@@ -2,18 +2,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSearchParams } from "react-router-dom";
 import SearchRentForm from "./SearchRentForm";
 import SearchBuyForm from "./SearchBuyForm";
-import { useState } from "react";
 
 export type Tab = "buy" | "rent";
 
 export type ClassType = "A" | "B" | "C";
+
+export type PropertyType = "House" | "Apartment" | "Condo Unit";
 
 export type PropertyParams = {
   tab?: Tab;
   location?: string;
   minPrice?: number;
   maxPrice?: number;
-  property?: string;
+  property?: PropertyType;
   class?: ClassType;
 };
 

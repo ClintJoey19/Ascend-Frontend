@@ -2,10 +2,21 @@ import { properties } from "@/constants";
 import PropertyGridItem from "./PropertyGridItem";
 import { ClassType, PropertyType, Tab } from "./SearchFilterForm";
 
+export type PropertyOtherInfo = {
+  bedroom: number;
+  bathroom: number;
+  parking: "Indoor" | "Outdoor";
+  area: number;
+  constructed: number;
+};
+
 export type Property = {
   id: string;
   name: string;
   description: string;
+  images: string[];
+  otherInfo: PropertyOtherInfo;
+  features: string[];
   address: string;
   type: Tab;
   propertyType: PropertyType;

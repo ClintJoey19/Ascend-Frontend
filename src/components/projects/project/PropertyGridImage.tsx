@@ -1,19 +1,21 @@
-import House1 from "@/assets/house-1.jpg";
-
 type PropertyGridImageProps = {
   images: string[];
 };
 
-const PropertyGridImage = () => {
+const PropertyGridImage = ({ images }: PropertyGridImageProps) => {
   return (
     <div className="grid grid-cols-3 gap-4">
-      <img
-        src={House1}
-        alt=""
-        className="object-cover object-center rounded-xl col-span-2 row-span-2"
-      />
-      <img src={House1} alt="" className="rounded-xl" />
-      <img src={House1} alt="" className="rounded-xl" />
+      {images.map((image, i) => (
+        <img
+          key={i}
+          src={image}
+          alt="property-image"
+          className={`rounded-xl ${
+            i === 0 &&
+            "h-full w-full object-cover object-center col-span-2 row-span-2"
+          }`}
+        />
+      ))}
     </div>
   );
 };

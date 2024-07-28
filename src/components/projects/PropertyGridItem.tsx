@@ -1,4 +1,3 @@
-import Building1 from "@/assets/building-1.jpg";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import { Property } from "./PropertiesGrid";
@@ -12,7 +11,7 @@ const PropertyGridItem = ({ property }: PropertyGridItemProps) => {
     <div className="bg-white rounded-xl flex flex-col shadow-sm">
       <div className="aspect-square w-full overflow-hidden rounded-tr-xl rounded-tl-xl relative">
         <img
-          src={Building1}
+          src={property.images[0]}
           alt=""
           className="w-full h-full object-cover object-center"
         />
@@ -34,7 +33,7 @@ const PropertyGridItem = ({ property }: PropertyGridItemProps) => {
             &#x20B1; {property.price.toLocaleString()}
           </p>
           <Button size="sm" asChild>
-            <Link to={`/projects/1`}>View</Link>
+            <Link to={`/projects/${property.id}`}>View</Link>
           </Button>
         </div>
       </div>

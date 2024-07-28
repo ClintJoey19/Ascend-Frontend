@@ -1,5 +1,7 @@
+import HomeLayout from "@/layouts/HomeLayout";
+
 const About = () => {
-  return <>About</>;
+  return <HomeLayout>About</HomeLayout>;
 };
 
 export default About;

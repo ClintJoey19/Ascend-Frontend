@@ -7,6 +7,10 @@ import Agents from "./pages/Agents.tsx";
 import Project from "./pages/Project.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
+import Profile from "./pages/Profile.tsx";
+import Messages from "./pages/Messages.tsx";
+import Bookings from "./pages/Bookings.tsx";
+import AgentProjects from "./pages/AgentProjects.tsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +44,22 @@ const router = createBrowserRouter([
   {
     path: "auth/sign-up",
     element: <Signup />,
+  },
+  {
+    path: "profile",
+    element: <Profile />,
+  },
+  {
+    path: "profile/agent-projects",
+    element: <AgentProjects />,
+  },
+  {
+    path: "profile/messages",
+    element: <Messages />,
+  },
+  {
+    path: "profile/bookings",
+    element: <Bookings />,
   },
 ]);
 

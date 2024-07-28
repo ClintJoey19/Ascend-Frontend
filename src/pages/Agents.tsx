@@ -1,5 +1,7 @@
+import HomeLayout from "@/layouts/HomeLayout";
+
 const Agents = () => {
-  return <>Agents</>;
+  return <HomeLayout>Agents</HomeLayout>;
 };
 
 export default Agents;

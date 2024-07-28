@@ -1,4 +1,6 @@
 import Building1 from "@/assets/building-1.jpg";
+import { Property } from "@/components/projects/PropertiesGrid";
+import { BookCheck, Building, MessageCircle, User } from "lucide-react";
 
 export const testimonials = [
   {
@@ -117,6 +119,20 @@ export const properties: Property[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
     address: "Naga City, CAS",
+    images: [Building1, Building1, Building1],
+    otherInfo: {
+      bedroom: 4,
+      bathroom: 2,
+      parking: "Indoor",
+      area: 1000,
+      constructed: 1999,
+    },
+    features: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     type: "buy",
     propertyType: "House",
     classType: "A",
@@ -128,10 +144,24 @@ export const properties: Property[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
     address: "Naga City, CAS",
+    images: [Building1, Building1, Building1],
+    otherInfo: {
+      bedroom: 1,
+      bathroom: 1,
+      parking: "Outdoor",
+      area: 1000,
+      constructed: 1999,
+    },
+    features: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     type: "rent",
     propertyType: "House",
     classType: "A",
-    price: 50_000_000,
+    price: 5_000,
   },
   {
     id: "3",
@@ -139,6 +169,20 @@ export const properties: Property[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
     address: "Naga City, CAS",
+    images: [Building1, Building1, Building1],
+    otherInfo: {
+      bedroom: 4,
+      bathroom: 2,
+      parking: "Indoor",
+      area: 1000,
+      constructed: 1999,
+    },
+    features: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     type: "buy",
     propertyType: "House",
     classType: "A",
@@ -150,6 +194,20 @@ export const properties: Property[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
     address: "Naga City, CAS",
+    images: [Building1, Building1, Building1],
+    otherInfo: {
+      bedroom: 4,
+      bathroom: 2,
+      parking: "Indoor",
+      area: 1000,
+      constructed: 1999,
+    },
+    features: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     type: "buy",
     propertyType: "House",
     classType: "A",
@@ -161,6 +219,20 @@ export const properties: Property[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
     address: "Naga City, CAS",
+    images: [Building1, Building1, Building1],
+    otherInfo: {
+      bedroom: 2,
+      bathroom: 2,
+      parking: "Outdoor",
+      area: 2000,
+      constructed: 2005,
+    },
+    features: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     type: "rent",
     propertyType: "House",
     classType: "A",
@@ -172,6 +244,20 @@ export const properties: Property[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
     address: "Naga City, CAS",
+    images: [Building1, Building1, Building1],
+    otherInfo: {
+      bedroom: 2,
+      bathroom: 2,
+      parking: "Outdoor",
+      area: 2000,
+      constructed: 2005,
+    },
+    features: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     type: "rent",
     propertyType: "House",
     classType: "A",
@@ -183,6 +269,20 @@ export const properties: Property[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
     address: "Naga City, CAS",
+    images: [Building1, Building1, Building1],
+    otherInfo: {
+      bedroom: 2,
+      bathroom: 2,
+      parking: "Outdoor",
+      area: 2000,
+      constructed: 2005,
+    },
+    features: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     type: "buy",
     propertyType: "House",
     classType: "A",
@@ -194,9 +294,64 @@ export const properties: Property[] = [
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure et quis impedit odio maiores, asperiores aperiam unde magni dolorum itaque obcaecati. Eveniet porro facilis eos quaerat quae minus libero dolor est similique autem accusamus magni debitis molestias nostrum cumque adipisci magnam aspernatur consequatur unde ratione, deserunt totam quasi dolore. Minus?",
     address: "Naga City, CAS",
+    images: [Building1, Building1, Building1],
+    otherInfo: {
+      bedroom: 4,
+      bathroom: 2,
+      parking: "Indoor",
+      area: 1000,
+      constructed: 1999,
+    },
+    features: [
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+      "Lorem ipsum dolor sit amet.",
+    ],
     type: "buy",
     propertyType: "House",
     classType: "A",
     price: 50_000_000,
+  },
+];
+
+export const profileLinks = [
+  {
+    label: "Profile",
+    href: "/profile",
+    Icon: User,
+  },
+  // {
+  //   label: "Messages",
+  //   href: "/profile/messages",
+  //   Icon: MessageCircle,
+  // },
+  {
+    label: "Bookings",
+    href: "/profile/bookings",
+    Icon: BookCheck,
+  },
+];
+
+export const agentLinks = [
+  {
+    label: "Profile",
+    href: "/profile",
+    Icon: User,
+  },
+  {
+    label: "Projects",
+    href: "/profile/agent-projects",
+    Icon: Building,
+  },
+  // {
+  //   label: "Messages",
+  //   href: "/profile/messages",
+  //   Icon: MessageCircle,
+  // },
+  {
+    label: "Bookings",
+    href: "/profile/bookings",
+    Icon: BookCheck,
   },
 ];

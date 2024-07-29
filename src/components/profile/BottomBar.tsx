@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 
 const BottomBar = () => {
   const { pathname } = useLocation();
-  const role = "agent";
-  const links = role === "agent" ? agentLinks : profileLinks;
+  const isAgent = true;
+  const links = isAgent ? agentLinks : profileLinks;
   return (
     <section className="md:hidden bg-primary w-full p-4 fixed bottom-0 right-0 left-0">
       <nav>

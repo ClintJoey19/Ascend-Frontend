@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
-  const role = "agent";
-  const links = role === "agent" ? agentLinks : profileLinks;
+  const isAgent = true;
+  const links = isAgent ? agentLinks : profileLinks;
 
   return (
     <section className="hidden md:inline-block w-[200px] py-4">

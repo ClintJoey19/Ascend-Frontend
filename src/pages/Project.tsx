@@ -20,7 +20,7 @@ const Project = () => {
     classType,
     type,
     propertyType,
-  } = properties[Number(id)];
+  } = properties[Number(id) - 1];
 
   return (
     <HomeLayout>

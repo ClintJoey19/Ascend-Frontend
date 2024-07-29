@@ -6,8 +6,6 @@ import RecentMessages from "@/components/profile/RecentMessages";
 import RecentBookings from "@/components/profile/RecentBookings";
 import RecentProjects from "@/components/profile/RecentProjects";
 
-export type UserRole = "user" | "agent";
-
 export type User = {
   id: string;
   firstname: string;
@@ -15,18 +13,18 @@ export type User = {
   email: string;
   password: string;
   profileImg: string;
-  role: UserRole;
+  isAgent: boolean;
 };
 
 const Profile = () => {
-  const { firstname, lastname, email, password, profileImg, role }: User = {
+  const { firstname, lastname, email, password, profileImg, isAgent }: User = {
     id: "12",
     firstname: "Clint Joey",
     lastname: "Llosala",
     email: "llosalaclintjoey@gmail.com",
     password: "hello1234",
     profileImg: Building1,
-    role: "agent",
+    isAgent: true,
   };
 
   return (
@@ -35,14 +33,17 @@ const Profile = () => {
         <h2 className="text-xl font-medium mb-4">My Profile</h2>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-            <div className="flex md:inline-block justify-center">
-              <div className="aspect-square w-[150px] md:w-[250px] border-4 border-primary rounded-full overflow-hidden">
+            <div className="flex flex-col md:inline-block items-center gap-2">
+              <div className="aspect-square w-[150px] md:w-[200px] border-4 border-primary rounded-full overflow-hidden">
                 <img
                   src={profileImg}
                   alt={firstname}
                   className="w-full h-full object-cover object-center"
                 />
               </div>
+              <p className="capitalize text-center text-primary font-medium">
+                {isAgent && "Agent"}
+              </p>
             </div>
             <div className="w-full flex flex-col gap-4">
               <div className="">
@@ -75,9 +76,9 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          {role === "agent" && <RecentProjects />}
+          {/* {role === "agent" && <RecentProjects />}
           <RecentMessages />
-          <RecentBookings />
+          <RecentBookings /> */}
         </div>
       </ProfileLayout>
     </HomeLayout>

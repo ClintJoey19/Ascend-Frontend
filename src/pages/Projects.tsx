@@ -8,7 +8,10 @@ const Projects = () => {
   return (
     <HomeLayout>
       <div className="mt-8 flex flex-col gap-8 p-4">
-        <Banner />
+        <Banner
+          banner="Our Recent Projects"
+          header="Best Properties of the Year"
+        />
         <SearchFilterForm />
         <PropertiesGrid />
         <PagePagination />

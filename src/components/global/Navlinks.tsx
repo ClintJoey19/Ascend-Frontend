@@ -13,10 +13,6 @@ const links = [
     label: "Contact",
     href: "/contact-us",
   },
-  {
-    label: "Agents",
-    href: "/agents",
-  },
 ];
 
 const Navlinks = () => {

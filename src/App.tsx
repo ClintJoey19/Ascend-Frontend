@@ -3,7 +3,6 @@ import Projects from "./pages/Projects.tsx";
 import Home from "./pages/Home.tsx";
 import About from "./pages/About.tsx";
 import Contact from "./pages/Contact.tsx";
-import Agents from "./pages/Agents.tsx";
 import Project from "./pages/Project.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
@@ -32,10 +31,6 @@ const router = createBrowserRouter([
   {
     path: "contact-us",
     element: <Contact />,
-  },
-  {
-    path: "agents",
-    element: <Agents />,
   },
   {
     path: "auth/login",

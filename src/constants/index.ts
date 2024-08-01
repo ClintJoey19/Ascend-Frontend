@@ -341,7 +341,7 @@ export const agentLinks = [
   },
   {
     label: "Projects",
-    href: "/profile/agent-projects",
+    href: "/agent-projects",
     Icon: Building,
   },
   // {
@@ -351,7 +351,7 @@ export const agentLinks = [
   // },
   {
     label: "Bookings",
-    href: "/profile/bookings",
+    href: "/bookings",
     Icon: BookCheck,
   },
 ];

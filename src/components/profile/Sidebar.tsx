@@ -10,7 +10,7 @@ const Sidebar = () => {
     <section className="hidden md:inline-block w-[200px] py-4">
       <nav className="">
         <ul className="flex flex-col gap-2">
-          {links.map(({ label, href, Icon }, i) => {
+          {links.map(({ label, href, Icon }) => {
             const isActive =
               (pathname.includes(href) && href.length > 8) || pathname === href;
             return (

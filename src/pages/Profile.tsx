@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import RecentMessages from "@/components/profile/RecentMessages";
 import RecentBookings from "@/components/profile/RecentBookings";
 import RecentProjects from "@/components/profile/RecentProjects";
+import { Button } from "@/components/ui/button";
+import { Pencil } from "lucide-react";
 
 export type User = {
   id: string;
@@ -30,7 +32,13 @@ const Profile = () => {
   return (
     <HomeLayout>
       <ProfileLayout>
-        <h2 className="text-xl font-medium mb-4">My Profile</h2>
+        <div className="flex justify-between items-center gap-4 mb-4">
+          <h2 className="text-xl font-medium">My Profile</h2>
+          <Button size="sm">
+            Edit Profile <Pencil className="h-3 w-3 ml-2" />
+          </Button>
+        </div>
+
         <div className="flex flex-col gap-4">
           <div className="flex flex-col md:flex-row gap-4 md:gap-8">
             <div className="flex flex-col md:inline-block items-center gap-2">
@@ -79,6 +87,9 @@ const Profile = () => {
           {/* {role === "agent" && <RecentProjects />}
           <RecentMessages />
           <RecentBookings /> */}
+          <div className="text-end">
+            <Button variant="destructive">Sign Out</Button>
+          </div>
         </div>
       </ProfileLayout>
     </HomeLayout>

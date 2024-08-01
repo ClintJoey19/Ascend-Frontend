@@ -10,6 +10,7 @@ import Profile from "./pages/Profile.tsx";
 import Messages from "./pages/Messages.tsx";
 import Bookings from "./pages/Bookings.tsx";
 import AgentProjects from "./pages/AgentProjects.tsx";
+import NewProject from "./pages/NewProject.tsx";
 
 const router = createBrowserRouter([
   {
@@ -45,15 +46,19 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
   {
-    path: "profile/agent-projects",
+    path: "agent-projects",
     element: <AgentProjects />,
   },
   {
-    path: "profile/messages",
+    path: "agent-projects/:projectId",
+    element: <NewProject />,
+  },
+  {
+    path: "messages",
     element: <Messages />,
   },
   {
-    path: "profile/bookings",
+    path: "bookings",
     element: <Bookings />,
   },
 ]);

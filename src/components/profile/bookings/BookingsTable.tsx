@@ -52,36 +52,6 @@ const data: Payment[] = [
     status: "failed",
     email: "carmella@hotmail.com",
   },
-  {
-    id: "mahebad",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "ekfebfjeb",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "pekfjeah",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "eehfeds",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "nfjqewabf",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
-  },
 ];
 
 export type Payment = {

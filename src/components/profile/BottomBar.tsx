@@ -6,7 +6,7 @@ const BottomBar = () => {
   const isAgent = true;
   const links = isAgent ? agentLinks : profileLinks;
   return (
-    <section className="md:hidden bg-primary w-full p-4 fixed bottom-0 right-0 left-0">
+    <section className="md:hidden bg-primary w-full p-4 fixed bottom-0 right-0 left-0 z-20">
       <nav>
         <ul className="flex justify-between gap-2">
           {links.map(({ label, href, Icon }, i) => {

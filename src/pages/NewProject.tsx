@@ -1,7 +1,9 @@
 import ProjectAddressForm from "@/components/profile/projects/forms/ProjectAddressForm";
 import ProjectCategoryForm from "@/components/profile/projects/forms/ProjectCategoryForm";
 import ProjectDescriptionForm from "@/components/profile/projects/forms/ProjectDescriptionForm";
+import ProjectFeatureForm from "@/components/profile/projects/forms/ProjectFeaturesForm";
 import ProjectNameForm from "@/components/profile/projects/forms/ProjectNameForm";
+import ProjectOtherInfoForm from "@/components/profile/projects/forms/ProjectOtherInfoForm";
 import ProjectPriceForm from "@/components/profile/projects/forms/ProjectPriceForm";
 import { Button } from "@/components/ui/button";
 import HomeLayout from "@/layouts/HomeLayout";
@@ -42,10 +44,12 @@ const NewProject = () => {
               <ProjectNameForm name="Hello World" />
               <ProjectDescriptionForm description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ab impedit a facere nisi doloribus repellat facilis modi qui amet hic sunt, quae id quisquam similique soluta maxime dignissimos ea?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ab impedit a facere nisi doloribus repellat facilis modi qui amet hic sunt, quae id quisquam similique soluta maxime dignissimos ea?" />
               <ProjectCategoryForm />
+              <ProjectOtherInfoForm />
             </div>
             <div className="flex flex-col gap-2">
               <ProjectPriceForm price={100000} />
               <ProjectAddressForm address="Naga City" />
+              <ProjectFeatureForm features={[]} />
             </div>
           </div>
         </div>

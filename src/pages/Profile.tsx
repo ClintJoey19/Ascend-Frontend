@@ -1,12 +1,15 @@
 import HomeLayout from "@/layouts/HomeLayout";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import Building1 from "@/assets/building-1.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RecentMessages from "@/components/profile/RecentMessages";
 import RecentBookings from "@/components/profile/RecentBookings";
 import RecentProjects from "@/components/profile/RecentProjects";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
+import { LoaderCircle, Pencil } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import apiRequest from "@/lib/apiRequest";
 
 export type User = {
   id: string;
@@ -19,6 +22,7 @@ export type User = {
 };
 
 const Profile = () => {
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
   const { firstname, lastname, email, password, profileImg, isAgent }: User = {
     id: "12",
     firstname: "Clint Joey",
@@ -27,6 +31,26 @@ const Profile = () => {
     password: "hello1234",
     profileImg: Building1,
     isAgent: true,
+  };
+  const navigate = useNavigate();
+
+  const onSignOut = async () => {
+    try {
+      setIsLoggingOut(true);
+
+      const res = await apiRequest.post("/auth/logout");
+
+      if (!res) throw new Error("There was an error logging out");
+
+      localStorage.removeItem("user");
+      toast.success(res.data.message);
+      navigate("/");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error("There was an error logging out");
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   return (
@@ -76,19 +100,23 @@ const Profile = () => {
                   {email}
                 </p>
               </div>
-              <div className="">
-                <span className="text-muted-foreground text-sm">Password</span>
-                <p className="mt-2 md:text-lg py-2 px-4 border border-slate-300 rounded-full truncate">
-                  {password}
-                </p>
-              </div>
             </div>
           </div>
           {/* {role === "agent" && <RecentProjects />}
           <RecentMessages />
           <RecentBookings /> */}
           <div className="text-end">
-            <Button variant="destructive">Sign Out</Button>
+            <Button
+              variant="destructive"
+              onClick={onSignOut}
+              disabled={isLoggingOut}
+            >
+              {!isLoggingOut ? (
+                "Sign Out"
+              ) : (
+                <LoaderCircle className="h-5 w-5 animate-spin" />
+              )}
+            </Button>
           </div>
         </div>
       </ProfileLayout>

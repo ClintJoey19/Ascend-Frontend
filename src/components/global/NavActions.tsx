@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 const NavActions = () => {
-  const isLogin = true;
+  const user = localStorage.getItem("user");
   return (
     <>
-      {isLogin ? (
+      {user ? (
         <Button asChild>
           <Link to="/profile">Profile</Link>
         </Button>

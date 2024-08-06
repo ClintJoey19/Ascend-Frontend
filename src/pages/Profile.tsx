@@ -6,52 +6,12 @@ import RecentMessages from "@/components/profile/RecentMessages";
 import RecentBookings from "@/components/profile/RecentBookings";
 import RecentProjects from "@/components/profile/RecentProjects";
 import { Button } from "@/components/ui/button";
-import { LoaderCircle, Pencil } from "lucide-react";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import apiRequest from "@/lib/apiRequest";
-
-export type User = {
-  id: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  profileImg: string;
-  isAgent: boolean;
-};
+import { LoaderCircle, Pencil, User } from "lucide-react";
+import { useAuthHook } from "@/providers/AuthProvider";
 
 const Profile = () => {
-  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
-  const { firstname, lastname, email, password, profileImg, isAgent }: User = {
-    id: "12",
-    firstname: "Clint Joey",
-    lastname: "Llosala",
-    email: "llosalaclintjoey@gmail.com",
-    password: "hello1234",
-    profileImg: Building1,
-    isAgent: true,
-  };
-  const navigate = useNavigate();
-
-  const onSignOut = async () => {
-    try {
-      setIsLoggingOut(true);
-
-      const res = await apiRequest.post("/auth/logout");
-
-      if (!res) throw new Error("There was an error logging out");
-
-      localStorage.removeItem("user");
-      toast.success(res.data.message);
-      navigate("/");
-    } catch (error: any) {
-      console.error(error.message);
-      toast.error("There was an error logging out");
-    } finally {
-      setIsLoggingOut(false);
-    }
-  };
+  const { user, isSubmitting, logout } = useAuthHook();
+  console.log(isSubmitting);
 
   return (
     <HomeLayout>
@@ -66,15 +26,19 @@ const Profile = () => {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col md:flex-row gap-4 md:gap-8">
             <div className="flex flex-col md:inline-block items-center gap-2">
-              <div className="aspect-square w-[150px] md:w-[200px] border-4 border-primary rounded-full overflow-hidden">
-                <img
-                  src={profileImg}
-                  alt={firstname}
-                  className="w-full h-full object-cover object-center"
-                />
+              <div className="aspect-square w-[150px] md:w-[200px] flex items-center justify-center border-4 border-primary rounded-full overflow-hidden">
+                {user?.profileImg ? (
+                  <img
+                    src={user?.profileImg}
+                    alt={user?.firstname}
+                    className="w-full h-full object-cover object-center"
+                  />
+                ) : (
+                  <User className="h-[90%] w-[90%] text-primary" />
+                )}
               </div>
               <p className="capitalize text-center text-primary font-medium">
-                {isAgent && "Agent"}
+                {user?.role === "agent" && "Agent"}
               </p>
             </div>
             <div className="w-full flex flex-col gap-4">
@@ -83,13 +47,13 @@ const Profile = () => {
                   First Name
                 </span>
                 <p className="mt-2 md:text-lg py-2 px-4 border border-slate-300 rounded-full">
-                  {firstname}
+                  {user?.firstname}
                 </p>
               </div>
               <div className="">
                 <span className="text-muted-foreground text-sm">Last Name</span>
                 <p className="mt-2 md:text-lg py-2 px-4 border border-slate-300 rounded-full">
-                  {lastname}
+                  {user?.lastname}
                 </p>
               </div>
               <div className="">
@@ -97,21 +61,21 @@ const Profile = () => {
                   Email Address
                 </span>
                 <p className="mt-2 md:text-lg py-2 px-4 border border-slate-300 rounded-full truncate">
-                  {email}
+                  {user?.email}
                 </p>
               </div>
             </div>
           </div>
-          {/* {role === "agent" && <RecentProjects />}
+          {/* {user?.role === "agent" && <RecentProjects />}
           <RecentMessages />
           <RecentBookings /> */}
           <div className="text-end">
             <Button
               variant="destructive"
-              onClick={onSignOut}
-              disabled={isLoggingOut}
+              onClick={logout}
+              disabled={isSubmitting}
             >
-              {!isLoggingOut ? (
+              {!isSubmitting ? (
                 "Sign Out"
               ) : (
                 <LoaderCircle className="h-5 w-5 animate-spin" />

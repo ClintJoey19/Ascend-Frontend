@@ -11,12 +11,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import AuthLayout from "@/layouts/AuthLayout";
 import { Link, useNavigate } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import apiRequest from "@/lib/apiRequest";
-import { AxiosError } from "axios";
 
 const formSchema = z.object({
   firstname: z.string().min(1, "First Name field is required"),
@@ -63,7 +61,7 @@ const Signup = () => {
   };
 
   return (
-    <AuthLayout>
+    <>
       <div className="flex flex-col items-center mb-4">
         <h2 className="text-xl font-semibold">Sign Up</h2>
         <p className="">Welcome to Ascend</p>
@@ -161,7 +159,7 @@ const Signup = () => {
           Login here
         </Link>
       </div>
-    </AuthLayout>
+    </>
   );
 };
 

@@ -11,55 +11,69 @@ import Messages from "./pages/Messages.tsx";
 import Bookings from "./pages/Bookings.tsx";
 import AgentProjects from "./pages/AgentProjects.tsx";
 import NewProject from "./pages/NewProject.tsx";
+import HomeLayout from "./layouts/HomeLayout.tsx";
+import AuthLayout from "./layouts/AuthLayout.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <HomeLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "projects",
+        element: <Projects />,
+      },
+      {
+        path: "projects/:id",
+        element: <Project />,
+      },
+      {
+        path: "about-us",
+        element: <About />,
+      },
+      {
+        path: "contact-us",
+        element: <Contact />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "agent-projects",
+        element: <AgentProjects />,
+      },
+      {
+        path: "agent-projects/:projectId",
+        element: <NewProject />,
+      },
+      {
+        path: "messages",
+        element: <Messages />,
+      },
+      {
+        path: "bookings",
+        element: <Bookings />,
+      },
+    ],
   },
   {
-    path: "projects",
-    element: <Projects />,
-  },
-  {
-    path: "projects/:id",
-    element: <Project />,
-  },
-  {
-    path: "about-us",
-    element: <About />,
-  },
-  {
-    path: "contact-us",
-    element: <Contact />,
-  },
-  {
-    path: "auth/login",
-    element: <Login />,
-  },
-  {
-    path: "auth/sign-up",
-    element: <Signup />,
-  },
-  {
-    path: "profile",
-    element: <Profile />,
-  },
-  {
-    path: "agent-projects",
-    element: <AgentProjects />,
-  },
-  {
-    path: "agent-projects/:projectId",
-    element: <NewProject />,
-  },
-  {
-    path: "messages",
-    element: <Messages />,
-  },
-  {
-    path: "bookings",
-    element: <Bookings />,
+    path: "/",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/auth/login",
+        element: <Login />,
+      },
+      {
+        path: "/auth/sign-up",
+        element: <Signup />,
+      },
+    ],
   },
 ]);
 

@@ -1,15 +1,22 @@
 import apiRequest from "@/lib/apiRequest";
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+
+type Role = "user" | "agent";
 
 type User = {
   id: string;
   firstname: string;
   lastname: string;
   email: string;
-  password: string;
-  role: string;
+  role: Role;
   profileImg?: string;
 };
 
@@ -24,11 +31,11 @@ type UserAction = {
 };
 
 type InitState = {
-  user: User | undefined;
+  user: User | null;
 };
 
 const initialState: InitState = {
-  user: JSON.parse(localStorage.getItem("user") as string) || undefined,
+  user: JSON.parse(localStorage.getItem("user") as string) || null,
 };
 
 const reducer = (state: InitState, action: UserAction) => {
@@ -38,12 +45,12 @@ const reducer = (state: InitState, action: UserAction) => {
     case ActionType.UPDATE_USER:
       return {
         ...state,
-        user: payload,
+        user: payload || null,
       };
     case ActionType.LOGOUT:
       return {
         ...state,
-        user: undefined,
+        user: null,
       };
     default:
       return state;
@@ -52,50 +59,82 @@ const reducer = (state: InitState, action: UserAction) => {
 
 interface AuthContextProps extends InitState {
   isSubmitting: boolean;
+  login: (email: string, password: string) => void;
   updateUser: (user: User) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps>({
-  user: initialState.user,
+  user: null,
   isSubmitting: false,
+  login: (email: string, password: string) => {},
   updateUser: (user: User) => {},
   logout: () => {},
 });
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(true);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const updateUser = (user: User) => {
+  const login = async (email: string, password: string) => {
     try {
       setIsSubmitting(true);
-      dispatch({ type: ActionType.UPDATE_USER, payload: user });
+
+      const res = await apiRequest.post("/auth/login", {
+        email,
+        password,
+      });
+
+      if (!res) throw new Error("Invalid Credentials");
+
+      // update the localStorage and state
+      localStorage.setItem("user", JSON.stringify(res.data));
+      dispatch({ type: ActionType.UPDATE_USER, payload: res.data });
+
+      toast.success("Login Successful");
+      navigate("/");
     } catch (error: any) {
       console.error(error.message);
+      toast.error(error.response.data.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  const updateUser = async (user: User) => {
+    try {
+      setIsSubmitting(true);
+
+      // const res = await apiRequest.post("/auth/login")
+
+      // if (!res) throw new Error("Invalid Credentials")
+
+      // // update the localStorage and state
+      // localStorage.setItem("user", JSON.stringify(res.data))
+      // dispatch({type: ActionType.UPDATE_USER, payload: res.data})
+
+      // toast.success("Update Successful")
+      // navigate("/profile")
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error(error.response.data.message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     try {
-      console.log("click");
+      setIsSubmitting(true);
 
-      // setIsSubmitting(true);
+      const res = await apiRequest.post("/auth/logout");
 
-      // // performs logout
-      // const res = await apiRequest.post("/auth/logouts");
+      // update the localStorage and state
+      localStorage.removeItem("user");
+      dispatch({ type: ActionType.LOGOUT });
 
-      // if (!res) throw new Error("There was an error logging out");
-
-      // // update the local storage and the state
-      // localStorage.removeItem("user");
-      // dispatch({ type: ActionType.LOGOUT });
-
-      // toast.success(res.data.message);
-      // navigate("/");
+      toast.success("Logout Successful");
+      navigate("/");
     } catch (error: any) {
       console.error(error.message);
       toast.error("There was an error logging out");
@@ -104,11 +143,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (state.user === null) {
+  //     localStorage.setItem("user", JSON.stringify(state.user));
+  //   }
+  // }, [state.user]);
+
   return (
     <AuthContext.Provider
       value={{
         user: state.user,
-        isSubmitting: isSubmitting,
+        isSubmitting,
+        login,
         updateUser,
         logout,
       }}
@@ -121,7 +167,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 export default AuthProvider;
 
 export const useAuthHook = () => {
-  const { user, isSubmitting, updateUser, logout } = useContext(AuthContext);
+  const { user, isSubmitting, login, updateUser, logout } =
+    useContext(AuthContext);
+  console.log(user);
 
-  return { user, isSubmitting, updateUser, logout };
+  return { user, isSubmitting, login, updateUser, logout };
 };

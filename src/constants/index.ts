@@ -328,7 +328,7 @@ export const profileLinks = [
   // },
   {
     label: "Bookings",
-    href: "/profile/bookings",
+    href: "/bookings",
     Icon: BookCheck,
   },
 ];

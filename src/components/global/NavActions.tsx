@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { useAuthHook } from "@/providers/AuthProvider";
 
 const NavActions = () => {
-  const user = localStorage.getItem("user");
+  const { user } = useAuthHook();
   return (
     <>
       {user ? (

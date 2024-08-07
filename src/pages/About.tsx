@@ -5,7 +5,7 @@ import HomeLayout from "@/layouts/HomeLayout";
 
 const About = () => {
   return (
-    <HomeLayout>
+    <>
       <div className="mt-8 flex flex-col gap-8 p-4">
         <Banner banner="About Us" header="Make Work Inspiring And Fulfilling" />
         <div className="flex flex-col gap-4">
@@ -33,7 +33,7 @@ const About = () => {
         </div>
       </div>
       <CallToAction />
-    </HomeLayout>
+    </>
   );
 };
 

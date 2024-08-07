@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,11 +10,9 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import AuthLayout from "@/layouts/AuthLayout";
-import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
-import apiRequest from "@/lib/apiRequest";
+import { useAuthHook } from "@/providers/AuthProvider";
 
 const formSchema = z.object({
   email: z.string().min(1, { message: "Invalid email" }),
@@ -23,7 +20,7 @@ const formSchema = z.object({
 });
 
 const Login = () => {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { user, isSubmitting, login } = useAuthHook();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,34 +28,33 @@ const Login = () => {
       password: "",
     },
   });
-  const navigate = useNavigate();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      setIsSubmitting(true);
-      const { email, password } = values;
+    const { email, password } = values;
 
-      const res = await apiRequest.post("/auth/login", {
-        email,
-        password,
-      });
+    login(email, password);
+    // try {
+    //   setIsSubmitting(true);
 
-      console.log(res);
+    //   const res = await apiRequest.post("/auth/login", {
+    //     email,
+    //     password,
+    //   });
 
-      if (!res) throw new Error("Invalid Credentials");
+    //   if (!res) throw new Error("Invalid Credentials");
 
-      localStorage.setItem("user", JSON.stringify(res.data));
-      toast.success("Login Successful");
-      navigate("/");
-    } catch (error: any) {
-      console.error(error.response.data.message);
-      toast.error(error.response.data.message);
-    } finally {
-      setIsSubmitting(false);
-    }
+    //   localStorage.setItem("user", JSON.stringify(res.data));
+    //   toast.success("Login Successful");
+    //   navigate("/");
+    // } catch (error: any) {
+    //   console.error(error.response.data.message);
+    //   toast.error(error.response.data.message);
+    // } finally {
+    //   setIsSubmitting(false);
+    // }
   };
   return (
-    <AuthLayout>
+    <>
       <div className="flex flex-col items-center mb-4">
         <h2 className="text-xl font-semibold">Login</h2>
         <p className="">Welcome to Ascend</p>
@@ -122,7 +118,7 @@ const Login = () => {
           Register here
         </Link>
       </div>
-    </AuthLayout>
+    </>
   );
 };
 

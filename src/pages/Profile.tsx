@@ -5,6 +5,7 @@ import RecentProjects from "@/components/profile/RecentProjects";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle, Pencil, User } from "lucide-react";
 import { useAuthHook } from "@/providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user, isSubmitting, logout } = useAuthHook();
@@ -13,8 +14,10 @@ const Profile = () => {
     <ProfileLayout>
       <div className="flex justify-between items-center gap-4 mb-4">
         <h2 className="text-xl font-medium">My Profile</h2>
-        <Button size="sm">
-          Edit Profile <Pencil className="h-3 w-3 ml-2" />
+        <Button size="sm" asChild>
+          <Link to="/profile/edit">
+            Edit Profile <Pencil className="h-3 w-3 ml-2" />
+          </Link>
         </Button>
       </div>
       <div className="flex flex-col gap-4">

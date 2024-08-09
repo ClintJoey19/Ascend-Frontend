@@ -12,8 +12,7 @@ const BottomBar = () => {
       <nav>
         <ul className="flex justify-between gap-2">
           {links.map(({ label, href, Icon }) => {
-            const isActive =
-              (pathname.includes(href) && href.length > 8) || pathname === href;
+            const isActive = pathname.includes(href) || pathname === href;
             return (
               <li
                 key={label}

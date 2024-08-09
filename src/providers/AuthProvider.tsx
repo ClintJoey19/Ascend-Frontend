@@ -35,7 +35,8 @@ type InitState = {
 };
 
 const initialState: InitState = {
-  user: JSON.parse(localStorage.getItem("user") as string) || null,
+  // user: JSON.parse(localStorage.getItem("user") as string) || null,
+  user: null,
 };
 
 const reducer = (state: InitState, action: UserAction) => {
@@ -143,11 +144,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (state.user === null) {
-  //     localStorage.setItem("user", JSON.stringify(state.user));
-  //   }
-  // }, [state.user]);
+  useEffect(() => {
+    const userToken = JSON.parse(localStorage.getItem("user") as string);
+
+    if (userToken) {
+      dispatch({ type: ActionType.UPDATE_USER, payload: userToken });
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -169,7 +172,6 @@ export default AuthProvider;
 export const useAuthHook = () => {
   const { user, isSubmitting, login, updateUser, logout } =
     useContext(AuthContext);
-  console.log(user);
 
   return { user, isSubmitting, login, updateUser, logout };
 };

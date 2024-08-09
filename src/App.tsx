@@ -13,6 +13,7 @@ import AgentProjects from "./pages/AgentProjects.tsx";
 import NewProject from "./pages/NewProject.tsx";
 import HomeLayout from "./layouts/HomeLayout.tsx";
 import AuthLayout from "./layouts/AuthLayout.tsx";
+import EditProfile from "./pages/EditProfile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "profile/edit",
+        element: <EditProfile />,
       },
       {
         path: "agent-projects",

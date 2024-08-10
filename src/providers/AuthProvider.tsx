@@ -9,9 +9,9 @@ import {
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-type Role = "user" | "agent";
+export type Role = "user" | "agent";
 
-type User = {
+export type User = {
   id: string;
   firstname: string;
   lastname: string;
@@ -106,7 +106,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       setIsSubmitting(true);
 
-      // const res = await apiRequest.post("/auth/login")
+      const res = await apiRequest.put(`/users/${user.id}`, {
+        ...user,
+      });
 
       // if (!res) throw new Error("Invalid Credentials")
 

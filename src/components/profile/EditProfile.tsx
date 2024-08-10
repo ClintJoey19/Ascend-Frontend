@@ -1,4 +1,3 @@
-import ProfileLayout from "@/layouts/ProfileLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -12,60 +11,75 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoaderCircle, User } from "lucide-react";
-import { useAuthHook } from "@/providers/AuthProvider";
+import { User } from "@/providers/AuthProvider";
+import { LoaderCircle } from "lucide-react";
+import ProfileAvatar from "../global/ProfileAvatar";
+import { useState } from "react";
+import UploadWidget from "../global/UploadWidget";
 
 const formSchema = z.object({
   firstname: z.string().min(1, "First Name field is required"),
   lastname: z.string().min(1, "Last Name field is required"),
   email: z.string().min(1, "Email field is required"),
+  profileImg: z.string().min(1, "Profile image is required"),
 });
 
-const EditProfile = () => {
-  const { user, isSubmitting, updateUser } = useAuthHook();
+type EditProfileProps = {
+  user: User | null;
+  isSubmitting: boolean;
+  updateUser: (user: User) => void;
+};
 
+const EditProfile = ({ user, isSubmitting, updateUser }: EditProfileProps) => {
+  const [profile, setProfile] = useState<string>(user?.profileImg || "");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       firstname: user?.firstname || "",
       lastname: user?.lastname || "",
       email: user?.email || "",
+      profileImg: profile,
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    try {
-      console.log(values);
-    } catch (error: any) {
-      console.error(error.message);
+    if (user) {
+      const updatedUser = {
+        ...user,
+        ...values,
+      };
+      updateUser(updatedUser);
     }
   };
 
   return (
-    <ProfileLayout>
-      <div className="mb-4">
-        <h2 className="text-xl font-medium">Edit Profile</h2>
-      </div>
+    <div className="">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full grid grid-cols-1 md:grid-cols-2 gap-4"
         >
-          <div className="flex items-center flex-col gap-4">
-            <div className="aspect-square w-[150px] md:w-[200px] flex items-center justify-center border-4 border-primary rounded-full overflow-hidden">
-              {user?.profileImg ? (
-                <img
-                  src={user?.profileImg}
-                  alt={user?.firstname}
-                  className="w-full h-full object-cover object-center"
-                />
-              ) : (
-                <User className="h-[90%] w-[90%] text-primary" />
+          <div>
+            <FormField
+              control={form.control}
+              name="profileImg"
+              render={({ field }) => (
+                <FormItem className="flex flex-col items-center gap-4">
+                  <ProfileAvatar profileImg={field.value} role={user?.role} />
+                  <UploadWidget
+                    uwConfig={{
+                      cloudName: "clintjoey",
+                      uploadPreset: "ascend",
+                      maxImageFileSize: 2000000,
+                      multiple: false,
+                      folder: "profiles",
+                    }}
+                    setPublicId={setProfile}
+                  />
+                  <FormMessage />
+                </FormItem>
               )}
-            </div>
-            <div className="text-center">
-              <Input type="file" />
-            </div>
+            />
           </div>
           <div className="flex flex-col gap-4">
             <FormField
@@ -122,7 +136,7 @@ const EditProfile = () => {
                 </FormItem>
               )}
             />
-            <div className="w-full flex flex-col">
+            <div className="text-end">
               <Button type="submit" disabled={isSubmitting}>
                 {!isSubmitting ? (
                   "Update"
@@ -134,7 +148,7 @@ const EditProfile = () => {
           </div>
         </form>
       </Form>
-    </ProfileLayout>
+    </div>
   );
 };
 

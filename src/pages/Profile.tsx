@@ -44,6 +44,7 @@ const Profile = () => {
           user={user}
           isSubmitting={isSubmitting}
           updateUser={updateUser}
+          setIsEditting={setIsEditting}
         />
       )}
     </ProfileLayout>

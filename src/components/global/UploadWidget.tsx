@@ -58,7 +58,6 @@ function UploadWidget({ uwConfig, setPublicId }: UploadWidgetProps) {
         uwConfig,
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            console.log("Done! Here is the image info: ", result.info);
             setPublicId(result.info.secure_url);
             myWidget.close();
           }
@@ -81,17 +80,11 @@ function UploadWidget({ uwConfig, setPublicId }: UploadWidgetProps) {
         id="upload_widget"
         variant="outline"
         size="sm"
+        type="button"
         onClick={initializeCloudinaryWidget}
       >
         Upload <Upload className="h-3 w-3 ml-2" />
       </Button>
-      {/* <button
-        id="upload_widget"
-        className="cloudinary-button"
-        onClick={initializeCloudinaryWidget}
-      >
-        Upload
-      </button> */}
     </CloudinaryScriptContext.Provider>
   );
 }

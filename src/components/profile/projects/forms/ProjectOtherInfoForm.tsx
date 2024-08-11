@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Pencil, X } from "lucide-react";
+import { LoaderCircle, Pencil, X } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,44 +22,38 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Project } from "@/pages/NewProject";
+import apiRequest from "@/lib/apiRequest";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   bedroom: z.coerce.number().min(1, { message: "Bedroom field is required" }),
   bathroom: z.coerce.number().min(1, { message: "Bathroom field is required" }),
   parking: z.string().min(1, { message: "Parking field is required" }),
   area: z.coerce.number().min(1, { message: "Area field is required" }),
-  constructed: z.coerce
-    .number()
-    .min(1800, { message: "Invalid constructed year" }),
+  constructed: z.string(),
 });
 
-type Parking = "indoor" | "outdoor";
-
 type ProjectOtherInfoFormProps = {
-  bedroom?: number;
-  bathroom?: number;
-  parking?: Parking;
-  area?: number;
-  constructed?: number;
+  project: Project | null;
+  setProject: React.Dispatch<React.SetStateAction<Project | null>>;
 };
 
 const ProjectOtherInfoForm = ({
-  bedroom,
-  bathroom,
-  parking,
-  area,
-  constructed,
+  project,
+  setProject,
 }: ProjectOtherInfoFormProps) => {
   const [isEditting, setIsEditting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bedroom: bedroom || 0,
-      bathroom: bathroom || 0,
-      parking: parking || "",
-      area: area || 0,
-      constructed: constructed || 0,
+      bedroom: project?.bedroom || 0,
+      bathroom: project?.bathroom || 0,
+      parking: project?.parking || "",
+      area: project?.area || 0,
+      constructed: project?.constructed,
     },
   });
 
@@ -67,8 +61,26 @@ const ProjectOtherInfoForm = ({
     setIsEditting(!isEditting);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      setIsSubmitting(true);
+
+      const res = await apiRequest.put(`/agent-projects/${project?.id}`, {
+        ...project,
+        ...values,
+      });
+
+      if (!res) throw new Error("Error updating project other information");
+
+      setProject(res.data);
+      toast.success("Other Information updated");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error("Error updating project other information");
+    } finally {
+      setIsSubmitting(false);
+      toggle();
+    }
   };
 
   return (
@@ -93,32 +105,52 @@ const ProjectOtherInfoForm = ({
         <div className="grid grid-cols-2 gap-2">
           <div className="flex flex-col">
             <span className="text-muted-foreground text-sm">Bedroom</span>
-            <p className="my-2 text-sm py-2 px-3 border border-slate-300 rounded-full">
-              {bedroom || "Bedroom not set."}
+            <p
+              className={`my-2 text-sm py-2 px-3 border border-slate-300 ${
+                !project?.bedroom && "text-slate-500"
+              } rounded-full`}
+            >
+              {project?.bedroom || "Bedroom not set."}
             </p>
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground text-sm">Bathroom</span>
-            <p className="my-2 text-sm py-2 px-3 border border-slate-300 rounded-full">
-              {bathroom || "Bathroom not set."}
+            <p
+              className={`my-2 text-sm py-2 px-3 border border-slate-300 ${
+                !project?.bathroom && "text-slate-500"
+              } rounded-full`}
+            >
+              {project?.bathroom || "Bathroom not set."}
             </p>
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground text-sm">Parking</span>
-            <p className="my-2 text-sm py-2 px-3 border border-slate-300 rounded-full">
-              {parking || "Parking not set."}
+            <p
+              className={`my-2 text-sm py-2 px-3 border border-slate-300 ${
+                !project?.parking && "text-slate-500"
+              } rounded-full`}
+            >
+              {project?.parking || "Parking not set."}
             </p>
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground text-sm">Area</span>
-            <p className="my-2 text-sm py-2 px-3 border border-slate-300 rounded-full">
-              {area || "Area not set."}
+            <p
+              className={`my-2 text-sm py-2 px-3 border border-slate-300 ${
+                !project?.area && "text-slate-500"
+              } rounded-full`}
+            >
+              {project?.area || "Area not set."}
             </p>
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground text-sm">Constructed</span>
-            <p className="my-2 text-sm py-2 px-3 border border-slate-300 rounded-full">
-              {constructed || "Constructed not set."}
+            <p
+              className={`my-2 text-sm py-2 px-3 border border-slate-300 ${
+                !project?.constructed && "text-slate-500"
+              } rounded-full`}
+            >
+              {project?.constructed || "Constructed not set."}
             </p>
           </div>
         </div>
@@ -135,7 +167,12 @@ const ProjectOtherInfoForm = ({
                 <FormItem>
                   <FormLabel>Bedroom</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} autoFocus />
+                    <Input
+                      type="number"
+                      {...field}
+                      disabled={isSubmitting}
+                      autoFocus
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -148,7 +185,12 @@ const ProjectOtherInfoForm = ({
                 <FormItem>
                   <FormLabel>Bathroom</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} autoFocus />
+                    <Input
+                      type="number"
+                      {...field}
+                      disabled={isSubmitting}
+                      autoFocus
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -164,15 +206,16 @@ const ProjectOtherInfoForm = ({
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
+                      disabled={isSubmitting}
                     >
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a fruit" />
+                        <SelectValue placeholder="Parking" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Parking</SelectLabel>
-                          <SelectItem value="indoor">Indoor</SelectItem>
-                          <SelectItem value="outdoor">Outdoor</SelectItem>
+                          <SelectItem value="Indoor">Indoor</SelectItem>
+                          <SelectItem value="Outdoor">Outdoor</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -188,7 +231,12 @@ const ProjectOtherInfoForm = ({
                 <FormItem>
                   <FormLabel>Area</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} autoFocus />
+                    <Input
+                      type="number"
+                      {...field}
+                      disabled={isSubmitting}
+                      autoFocus
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -201,15 +249,19 @@ const ProjectOtherInfoForm = ({
                 <FormItem>
                   <FormLabel>Constructed</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} autoFocus />
+                    <Input type="date" {...field} disabled={isSubmitting} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <div className="flex flex-col justify-end">
-              <Button type="submit" size="sm">
-                Save
+              <Button type="submit" size="sm" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <LoaderCircle className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Save"
+                )}
               </Button>
             </div>
           </form>

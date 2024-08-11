@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Pencil, X } from "lucide-react";
+import { LoaderCircle, Pencil, X } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,24 +20,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Project } from "@/pages/NewProject";
+import apiRequest from "@/lib/apiRequest";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  category: z
-    .string()
-    .min(1, { message: "Project Category field is required" }),
+  type: z.string().min(1, { message: "Project Category field is required" }),
 });
 
 type ProjectCategoryFormProps = {
-  category?: string;
+  project: Project | null;
+  setProject: React.Dispatch<React.SetStateAction<Project | null>>;
 };
 
-const ProjectCategoryForm = ({ category }: ProjectCategoryFormProps) => {
+const ProjectCategoryForm = ({
+  project,
+  setProject,
+}: ProjectCategoryFormProps) => {
   const [isEditting, setIsEditting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      category,
+      type: project?.type || "",
     },
   });
 
@@ -45,8 +51,26 @@ const ProjectCategoryForm = ({ category }: ProjectCategoryFormProps) => {
     setIsEditting(!isEditting);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      setIsSubmitting(true);
+
+      const res = await apiRequest.put(`/agent-projects/${project?.id}`, {
+        ...project,
+        type: values.type,
+      });
+
+      if (!res) throw new Error("Error updating project category");
+
+      setProject(res.data);
+      toast.success("Project category updated");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error("Error updating project category");
+    } finally {
+      setIsSubmitting(false);
+      toggle();
+    }
   };
   return (
     <div className="flex flex-col gap-2">
@@ -67,27 +91,36 @@ const ProjectCategoryForm = ({ category }: ProjectCategoryFormProps) => {
         )}
       </div>
       {!isEditting ? (
-        <p className="my-2 text-sm py-2 px-3 border border-slate-300 rounded-full">
-          {category || "Category"}
+        <p
+          className={`my-2 text-sm py-2 px-3 border border-slate-300 ${
+            !project?.type && "text-slate-500"
+          } rounded-full`}
+        >
+          {project?.type || "Category not set"}
         </p>
       ) : (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="mb-2">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-4"
+          >
             <FormField
               control={form.control}
-              name="category"
+              name="type"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel />
                   <FormControl>
-                    <Select>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Type" />
+                        <SelectValue placeholder="Category" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectItem value="buy">Buy</SelectItem>
-                          <SelectItem value="rent">Rent</SelectItem>
+                          <SelectItem value="Buy">Buy</SelectItem>
+                          <SelectItem value="Rent">Rent</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -96,6 +129,15 @@ const ProjectCategoryForm = ({ category }: ProjectCategoryFormProps) => {
                 </FormItem>
               )}
             />
+            <div className="text-end">
+              <Button type="submit" size="sm">
+                {isSubmitting ? (
+                  <LoaderCircle className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Save"
+                )}
+              </Button>
+            </div>
           </form>
         </Form>
       )}

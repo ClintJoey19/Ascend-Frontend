@@ -60,8 +60,12 @@ const ProjectAddressForm = ({ address }: ProjectAddressFormProps) => {
         )}
       </div>
       {!isEditting ? (
-        <p className="my-2 text-sm py-2 px-3 border border-slate-300 rounded-full">
-          {address}
+        <p
+          className={`my-2 text-sm py-2 px-3 border border-slate-300 ${
+            !address && "text-slate-500"
+          } rounded-full`}
+        >
+          {address || "Address not set"}
         </p>
       ) : (
         <Form {...form}>

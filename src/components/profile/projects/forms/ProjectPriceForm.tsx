@@ -13,6 +13,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import apiRequest from "@/lib/apiRequest";
+import toast from "react-hot-toast";
+import { Project } from "@/pages/NewProject";
 
 const formSchema = z.object({
   price: z.coerce
@@ -21,16 +24,18 @@ const formSchema = z.object({
 });
 
 type ProjectPriceFormProps = {
-  price?: number;
+  project: Project | null;
+  setProject: React.Dispatch<React.SetStateAction<Project | null>>;
 };
 
-const ProjectPriceForm = ({ price }: ProjectPriceFormProps) => {
+const ProjectPriceForm = ({ project, setProject }: ProjectPriceFormProps) => {
   const [isEditting, setIsEditting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      price: price || 0,
+      price: project?.price || 0,
     },
   });
 
@@ -38,8 +43,26 @@ const ProjectPriceForm = ({ price }: ProjectPriceFormProps) => {
     setIsEditting(!isEditting);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      setIsSubmitting(true);
+
+      const res = await apiRequest.put(`/agent-projects/${project?.id}`, {
+        ...project,
+        price: values.price,
+      });
+
+      if (!res) throw new Error("Error updating project price");
+
+      setProject(res.data);
+      toast.success("Project price updated");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error("Error updating project price");
+    } finally {
+      setIsSubmitting(false);
+      toggle();
+    }
   };
   return (
     <div className="flex flex-col gap-2">
@@ -60,8 +83,12 @@ const ProjectPriceForm = ({ price }: ProjectPriceFormProps) => {
         )}
       </div>
       {!isEditting ? (
-        <p className="my-2 text-sm py-2 px-3 border border-slate-300 rounded-full">
-          {price?.toLocaleString() || 0}
+        <p
+          className={`my-2 text-sm py-2 px-3 border border-slate-300 ${
+            !project?.price && "text-slate-500"
+          } rounded-full`}
+        >
+          {project?.price?.toLocaleString() || 0}
         </p>
       ) : (
         <Form {...form}>
@@ -77,6 +104,7 @@ const ProjectPriceForm = ({ price }: ProjectPriceFormProps) => {
                       type="number"
                       placeholder="e.g 1,000,000.00"
                       {...field}
+                      disabled={isSubmitting}
                       autoFocus
                     />
                   </FormControl>

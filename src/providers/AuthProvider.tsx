@@ -110,14 +110,14 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         ...user,
       });
 
-      // if (!res) throw new Error("Invalid Credentials")
+      if (!res) throw new Error("Invalid Credentials");
 
-      // // update the localStorage and state
-      // localStorage.setItem("user", JSON.stringify(res.data))
-      // dispatch({type: ActionType.UPDATE_USER, payload: res.data})
+      // update the localStorage and state
+      localStorage.setItem("user", JSON.stringify(res.data));
+      dispatch({ type: ActionType.UPDATE_USER, payload: res.data });
 
-      // toast.success("Update Successful")
-      // navigate("/profile")
+      toast.success("Update Successful");
+      navigate("/profile");
     } catch (error: any) {
       console.error(error.message);
       toast.error(error.response.data.message);
@@ -130,7 +130,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       setIsSubmitting(true);
 
-      const res = await apiRequest.post("/auth/logout");
+      await apiRequest.post("/auth/logout");
 
       // update the localStorage and state
       localStorage.removeItem("user");

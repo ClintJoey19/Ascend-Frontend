@@ -16,21 +16,27 @@ import { LoaderCircle } from "lucide-react";
 import ProfileAvatar from "../global/ProfileAvatar";
 import { useState } from "react";
 import UploadWidget from "../global/UploadWidget";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   firstname: z.string().min(1, "First Name field is required"),
   lastname: z.string().min(1, "Last Name field is required"),
   email: z.string().min(1, "Email field is required"),
-  profileImg: z.string().min(1, "Profile image is required"),
 });
 
 type EditProfileProps = {
   user: User | null;
   isSubmitting: boolean;
   updateUser: (user: User) => void;
+  setIsEditting: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const EditProfile = ({ user, isSubmitting, updateUser }: EditProfileProps) => {
+const EditProfile = ({
+  user,
+  isSubmitting,
+  updateUser,
+  setIsEditting,
+}: EditProfileProps) => {
   const [profile, setProfile] = useState<string>(user?.profileImg || "");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,17 +44,26 @@ const EditProfile = ({ user, isSubmitting, updateUser }: EditProfileProps) => {
       firstname: user?.firstname || "",
       lastname: user?.lastname || "",
       email: user?.email || "",
-      profileImg: profile,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    if (user) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (!profile) return toast.error("Profile image is required");
+
+    try {
+      if (!user) return toast.error("User unauthorized");
+
       const updatedUser = {
         ...user,
         ...values,
+        profileImg: profile,
       };
-      updateUser(updatedUser);
+      await updateUser(updatedUser);
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error("Error updating user");
+    } finally {
+      setIsEditting(false);
     }
   };
 
@@ -59,26 +74,17 @@ const EditProfile = ({ user, isSubmitting, updateUser }: EditProfileProps) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full grid grid-cols-1 md:grid-cols-2 gap-4"
         >
-          <div>
-            <FormField
-              control={form.control}
-              name="profileImg"
-              render={({ field }) => (
-                <FormItem className="flex flex-col items-center gap-4">
-                  <ProfileAvatar profileImg={field.value} role={user?.role} />
-                  <UploadWidget
-                    uwConfig={{
-                      cloudName: "clintjoey",
-                      uploadPreset: "ascend",
-                      maxImageFileSize: 2000000,
-                      multiple: false,
-                      folder: "profiles",
-                    }}
-                    setPublicId={setProfile}
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
+          <div className="flex flex-col items-center gap-4">
+            <ProfileAvatar profileImg={profile} role={user?.role} />
+            <UploadWidget
+              uwConfig={{
+                cloudName: "clintjoey",
+                uploadPreset: "ascend",
+                maxImageFileSize: 2000000,
+                multiple: false,
+                folder: "profiles",
+              }}
+              setPublicId={setProfile}
             />
           </div>
           <div className="flex flex-col gap-4">

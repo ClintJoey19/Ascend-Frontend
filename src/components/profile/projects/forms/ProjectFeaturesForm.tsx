@@ -19,7 +19,7 @@ const formSchema = z.object({
 });
 
 type ProjectFeatureFormProps = {
-  features: string[];
+  features?: string[];
 };
 
 const ProjectFeatureForm = ({ features }: ProjectFeatureFormProps) => {
@@ -59,11 +59,17 @@ const ProjectFeatureForm = ({ features }: ProjectFeatureFormProps) => {
         )}
       </div>
       {!isEditting ? (
-        <ul>
-          {features.map((feat, i) => (
-            <li key={i}>{feat}</li>
-          ))}
-        </ul>
+        features?.length === 0 ? (
+          <p className="my-2 text-sm py-2 px-3 border border-slate-300 text-slate-500 rounded-full">
+            Features are not set
+          </p>
+        ) : (
+          <ul>
+            {features?.map((feat, i) => (
+              <li key={i}>{feat}</li>
+            ))}
+          </ul>
+        )
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="mb-2">
